@@ -213,7 +213,7 @@ function display(data, sortedBy) {
         finalGrades.forEach((itemdispG, index) => {
             console.log(itemdispG)
             displayString += itemdispG + " "
-            if (index == finalGrade.length - 1) {
+            if (index == finalGrades.length - 1) {
                 displayString += "<br>"
             }
         })
@@ -227,10 +227,10 @@ function display(data, sortedBy) {
 function displayInHTML() {
     
     var nameValue = document.getElementById("rawTextData").value;
-    if (oldRawData == nameValue){
-        console.log("returned null")
-        return null;
-    }
+    // if (oldRawData == nameValue){
+    //     console.log("returned null")
+    //     return null;
+    // }
     console.log("get inside the dataprocess");
     var string = nameValue.replace(/[ ]+(?=[^\d])/g, '\n');
     var forDisplay = '<br>'
