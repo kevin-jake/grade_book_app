@@ -16,7 +16,6 @@
     "browserify-shim": "^3.8.14",
     "express": "^4.17.1",
     "mongodb": "^3.3.3",
-    "multer": "^1.4.2",
     "save": "^2.4.0"
   }
 }
