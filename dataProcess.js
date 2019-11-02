@@ -106,7 +106,7 @@ function extractData(array) {
                 makeJSON(fullname, name, quartertoPass, year, gradesArray_H, gradesArray_T, finalG);
             }
         }
-        
+
 
     })
 
@@ -197,6 +197,9 @@ function aveGrade(Gradearray) {
     return avg
 }
 
+
+
+
 function display(data, sortedBy) {
     var displayString = "<br>Averages<br>"
     var finalGrades = []
@@ -224,8 +227,9 @@ function display(data, sortedBy) {
 
 }
 
+
 function displayInHTML() {
-    
+
     var nameValue = document.getElementById("rawTextData").value;
     // if (oldRawData == nameValue){
     //     console.log("returned null")
@@ -244,13 +248,50 @@ function displayInHTML() {
     console.log("Final Data: ")
     console.log(dataArray);
     dispStr = display(dataArray)
-    
-    if (dispStr == null || forDisplay == "<br>"){
+
+    if (dispStr == null || forDisplay == "<br>") {
         forDisplay = "No data found."
         dispStr = forDisplay
     }
-    
+
     // document.getElementById("all").innerHTML = forDisplay;
     document.getElementById("display").innerHTML = dispStr;
     oldRawData = nameValue;
+}
+
+document.getElementById('chooseFile').addEventListener('click', function () {
+    document.getElementById('myFile').click();
+});
+
+var filedom = document.getElementById('myFile')
+if (filedom) {
+    filedom.addEventListener('change', getFile)
+    console.log(filedom);
+}
+
+function getFile(event) {
+    trueValue = this.value.replace("C:\\fakepath\\", "");
+    document.getElementById('fileName').value = trueValue;
+    console.log(trueValue);
+    const input = event.target
+    if ('files' in input && input.files.length > 0) {
+        placeFileContent(
+            document.getElementById('rawTextData'),
+            input.files[0])
+    }
+}
+
+function placeFileContent(target, file) {
+    readFileContent(file).then(content => {
+        target.value = content
+    }).catch(error => console.log(error))
+}
+
+function readFileContent(file) {
+    const reader = new FileReader()
+    return new Promise((resolve, reject) => {
+        reader.onload = event => resolve(event.target.result)
+        reader.onerror = error => reject(error)
+        reader.readAsText(file)
+    })
 }
