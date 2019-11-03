@@ -9,7 +9,7 @@ The Grade Book Application is an application (for Tiffy) that takes a file or da
 Technical Description
 ---------------------
 
-In this application the developer used NodeJS and JS programming. The database used is cloud Mongodb database (https://cloud.mongodb.com) and for the styling the user used bootstrap.
+In this application the developer used NodeJS and JS programming. The database used is cloud Mongodb database (https://cloud.mongodb.com) and for the styling he used bootstrap.
 
 --------------
 Pseudo Code
