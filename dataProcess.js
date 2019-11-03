@@ -164,8 +164,11 @@ function makeJSON(fullNameArray, fullName, quarter, year, homeworkGrade, testGra
             dataArray.push(data);
         }
         else {
-            dataArray[index].quarterGrades.push({})
-            var qGradesIndex = dataArray[index].quarterGrades.length - 1
+            var qGradesIndex = dataArray[index].quarterGrades.findIndex(x => (x.year == year && x.quarter == quarter))
+            if (qGradesIndex < 0) {
+                dataArray[index].quarterGrades.push({})
+                qGradesIndex = dataArray[index].quarterGrades.length - 1
+            }
             if (!(quarter == null || quarter == undefined || quarter == '')) dataArray[index].quarterGrades[qGradesIndex].quarter = quarter
             if (!(year == null || year == undefined || year == '')) dataArray[index].quarterGrades[qGradesIndex].year = year
             if (!(homeworkGrade == null || homeworkGrade == undefined || homeworkGrade == [])) dataArray[index].quarterGrades[qGradesIndex].homeworkGrade = homeworkGrade
