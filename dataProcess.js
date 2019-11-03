@@ -1,5 +1,36 @@
 var dataArray = [];
 var oldRawData
+var server_url = "http://localhost:3000"
+
+var dataFromDB = JSON.parse(document.getElementById('getDatafromDB').innerHTML);
+console.log(dataFromDB);
+
+if (dataFromDB.length == 0) {
+    dataArray = dataFromDB;
+}
+
+$('#getGrades').on('click', function () {
+    displayInHTML();
+    console.log(dataArray)
+    dataArray.forEach((item, index) => {
+        console.log(item)
+        $.ajax({
+            url: server_url + "/gradesSave",
+            type: "POST",
+            data: item,
+            success: function (msg) {
+
+                console.log("Saved on database" + msg);
+            },
+            error: function (jqXHR, status, err) {
+                console.log("Local error callback.");
+            },
+            dataType: "json"
+        })
+    })
+
+
+})
 
 function extractData(array) {
     var stringArr = array;

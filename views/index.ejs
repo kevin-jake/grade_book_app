@@ -34,11 +34,13 @@
             <div class="row">
                 <div class="col-sm">
                     <div class="input-group mt-3 mb-3">
-                            <form id="for_dbsave" method="post" action="/gradesSave">
-                        <div onclick="displayInHTML()">
-                            <button id="getGrades" type="submit" class="btn btn-dark btn-block">Get Final Grades</button>
-                        </div>
-                        </form>
+                        <!-- <form id="for_dbsave" method="post" action="/gradesSave"> -->
+                            <!-- <div onclick="displayInHTML()" class="form-group"> -->
+                                <!-- <input id="getGrades" type="submit" class="btn btn-dark btn-block">Get Final
+                                Grades</input> -->
+                                <button id="getGrades" class="btn btn-dark btn-block"> Get Final Grade Average</button>
+                            <!-- </div> -->
+                        <!-- </form> -->
                     </div>
                 </div>
                 <div class="col-sm">
@@ -62,6 +64,40 @@
                 <p class="card-text" id="all"></p>
             </div>
         </div> -->
+        <div class="card mt-3">
+            <h5 class="card-header h5">Test</h5>
+            <div class="grades card-body">
+                <p id="getDatafromDB" style="display: none;"><%= JSON.stringify(grades) %></p>
+                <%  
+                    var stringOut    
+                    for(var i=0; i<grades.length; i++) {
+                        var name = ''
+                        var quarter = ''
+                        var finalGrade = ''
+                        if (!(grades[i].fullName == null || grades[i].fullName == undefined || grades[i].fullName == '')){
+                            name = grades[i].fullName
+                            stringOut = name + ":"
+                        } 
+                        if (grades[i].hasOwnProperty('quarterGrades')) {
+                            for (var index=0; index<grades[i].quarterGrades.length; index++) {
+                                quarter = grades[i].quarterGrades[index].quarter
+                                finalGrade = grades[i].quarterGrades[index].finalGrade
+                                stringOut += " Q" + quarter + " " + finalGrade
+                            } 
+                        }
+                        
+                %>
+                <p class="card-text">
+                    <%= stringOut %>
+                </p>
+                <% } 
+                if (grades.length == 0)  { stringOut = "No Data found on the database." %>
+                    <p class="card-text">
+                            <%= stringOut %>
+                        </p>
+                <% } %>
+            </div>
+        </div>
         <div class="card mt-3 mb-3">
             <h5 class="card-header h5">Average Grades</h5>
             <div class="card-body">
@@ -69,8 +105,8 @@
             </div>
         </div>
     </div>
-    <script src="./dataProcess.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="./dataProcess.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
 </body>
