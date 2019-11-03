@@ -17,7 +17,7 @@ Pseudo Code
 
 NOTE: NodeJS must be installed on your local machine
 
-- Go to the root directory of the project folder and run an npm start command on your terminal.
+- Go to the root directory of the project folder and run an ``` npm start ``` command on your terminal.
 - Open a browser and go to http://localhost:3000/
 - Once the page is loaded user can now paste the grade data on the text area field.
 - For the best use of the application user must paste the data on a specific format (Please see example below)
