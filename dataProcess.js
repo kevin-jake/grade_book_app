@@ -1,36 +1,68 @@
 var dataArray = [];
 var oldRawData
-var server_url = "http://localhost:3000"
 
-var dataFromDB = JSON.parse(document.getElementById('getDatafromDB').innerHTML);
-console.log(dataFromDB);
+getDatafromDB();
 
-if (dataFromDB.length == 0) {
-    dataArray = dataFromDB;
-}
+const displayfromDB = $("#displayfromDB");
+
+
 
 $('#getGrades').on('click', function () {
     displayInHTML();
     console.log(dataArray)
     dataArray.forEach((item, index) => {
         console.log(item)
-        $.ajax({
-            url: server_url + "/gradesSave",
-            type: "POST",
-            data: item,
-            success: function (msg) {
+        fetch('/gradesSave', {
+            method: 'post',
+            body: JSON.stringify(item),
+            headers: {
+                "Content-Type": "application/json; charset=utf-8"
+            }
+        }).then((response) => {
+            return response.json();
+        }).then((data) => {
+            if (!data.error) {
+                getDatafromDB()
+            }
+            else
+                displayMessage(false, data.error.message);
+        });
 
-                console.log("Saved on database" + msg);
-            },
-            error: function (jqXHR, status, err) {
-                console.log("Local error callback.");
-            },
-            dataType: "json"
-        })
-    })
-
+    });
 
 })
+
+function getDatafromDB() {
+    fetch('/getDatafromDB', { method: "get" }).then((response) => {
+        return response.json();
+    }).then((data) => {
+        dataArray = data;
+        console.log(data);
+        displayGrades(data);
+    });
+}
+
+function htmlAppend(singleData) {
+    var stringOut = ""
+    var name = ''
+    var quarter = ''
+    var finalGrade = ''
+    name = singleData.fullName
+    stringOut = name + ":"
+    for (var index = 0; index < singleData.quarterGrades.length; index++) {
+        quarter = singleData.quarterGrades[index].quarter
+        finalGrade = singleData.quarterGrades[index].finalGrade
+        stringOut += " Q" + quarter + " " + finalGrade
+    }
+    return `<p class="card-text">${stringOut}</p>`;
+}
+
+function displayGrades(data) {
+    data.forEach((item) => {
+        displayfromDB.append(htmlAppend(item));
+    });
+}
+
 
 function extractData(array) {
     var stringArr = array;
