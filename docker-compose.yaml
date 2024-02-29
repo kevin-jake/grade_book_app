@@ -1,0 +1,18 @@
+version: "3.7"
+services:
+  mongo:
+    image: mongo:latest
+    ports:
+      - "27017:27017"
+    volumes:
+      - /data:/data/db
+  nodeapp:
+    restart: always
+    image: kevinjake/node-gradebook-app
+    environment:
+      - DB_URL=mongo:27017
+      - DB_NAME=test
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongo
