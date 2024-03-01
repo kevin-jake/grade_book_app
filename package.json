@@ -5,7 +5,8 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node --inspect app"
+    "start": "node --inspect app",
+    "build": "webpack --config webpack.config.js  && cp index.html dist/index.html && cp dataProcess.js dist/dataProcess.js"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +20,11 @@
     "express": "^4.17.1",
     "joi": "^14.3.1",
     "mongodb": "^3.5.7",
+    "mongodb-client-encryption": "^6.0.0",
     "save": "^2.4.0"
+  },
+  "devDependencies": {
+    "webpack": "^5.90.3",
+    "webpack-cli": "^5.1.4"
   }
 }
